@@ -1,3 +1,4 @@
+import com.wp.Hash;
 import com.wp.Polling;
 import org.junit.Test;
 
@@ -25,7 +26,8 @@ public class LoadBalanceTest {
                 @Override
                 public void run() {
                     for (int i = 0; i < 10; i++) {
-                        System.out.println(Polling.getServer());
+//                        System.out.println(Polling.getServer());
+                        System.out.println(Hash.getServer());
                     }
                 }
             }));
