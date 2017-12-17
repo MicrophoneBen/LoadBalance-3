@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * @author 王萍
  * @date 2017/12/16 0016
+ * 随机法
  */
 public class Random {
 

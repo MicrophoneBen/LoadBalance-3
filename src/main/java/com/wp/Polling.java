@@ -6,10 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author 王萍
  * @date 2017/12/16 0016
- */
-
-/**
- * 轮询算法
+ * 轮询法
  */
 public class Polling {
 
