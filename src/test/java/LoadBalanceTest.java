@@ -1,4 +1,6 @@
 import com.wp.Hash;
+import com.wp.Polling;
+import com.wp.WeightPolling;
 import net.sourceforge.groboutils.junit.v1.MultiThreadedTestRunner;
 import net.sourceforge.groboutils.junit.v1.TestRunnable;
 import org.junit.Test;
@@ -40,6 +42,13 @@ public class LoadBalanceTest {
     }
 
     @Test
+    public void testWeightPolling() {
+        for (int i = 0; i < 32; i++) {
+            System.out.println(WeightPolling.getServer());
+        }
+    }
+
+    @Test
     public void testWithGroboutils() {
         //使用junit多线程测试工具groboutils。
         int threadCount = 300;
@@ -51,8 +60,7 @@ public class LoadBalanceTest {
                     @Override
                     public void runTest() throws Throwable {
                         for (int i = 0; i < 10; i++) {
-//                        System.out.println(Polling.getServer());
-                            System.out.println(Hash.getServer());
+                            System.out.println(Polling.getServer());
                         }
                     }
                 };
@@ -60,6 +68,28 @@ public class LoadBalanceTest {
             // 用于执行多线程测试用例的Runner，将前面定义的单个Runner组成的数组传入
             MultiThreadedTestRunner mttr = new MultiThreadedTestRunner(trs);
             // 开发并发执行数组里定义的内容
+            mttr.runTestRunnables();
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testHash() {
+        int threadCount = 300;
+        try {
+            TestRunnable[] trs = new TestRunnable[threadCount];
+            for (int i = 0; i < threadCount; i++) {
+                trs[i] = new TestRunnable() {
+                    @Override
+                    public void runTest() throws Throwable {
+                        for (int i = 0; i < 10; i++) {
+                            System.out.println(Hash.getServer());
+                        }
+                    }
+                };
+            }
+            MultiThreadedTestRunner mttr = new MultiThreadedTestRunner(trs);
             mttr.runTestRunnables();
         } catch (Throwable e) {
             e.printStackTrace();
